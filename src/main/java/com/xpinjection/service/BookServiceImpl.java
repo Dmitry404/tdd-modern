@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
     private final ConcurrentMap<String, List<Book>> cache = new ConcurrentHashMap<>();
-    private final Indexer indexer = new Indexer();
+    private final Indexer indexer = new InMemoryIndexer();
 
     public BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
