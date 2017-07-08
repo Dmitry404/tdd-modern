@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
@@ -111,6 +112,25 @@ public class BookServiceImplTest {
         when(dao.findByAuthor("Mikalai Alimenkou")).thenReturn(singletonList(book));
 
         assertBooksByAuthor(" \t Mikalai \n Alimenkou \t ", book);
+    }
+
+    @Test
+    public void booksCanBeSearchedByKeyword() throws Exception {
+        Map<String, String> addedBooks = new HashMap<>();
+        addedBooks.put("Effective Java", "Joshua Bloch");
+        addedBooks.put("Egor's Object Language", "Egor Bugaenko");
+
+        Book BOOK = new Book("Effective Java", "Joshua Bloch");
+        Book DUMMY_BOOK = new Book("Egor's Object Language", "Egor Bugaenko");
+
+        when(dao.save(notNull(Book.class)))
+            .thenReturn(BOOK)
+            .thenReturn(DUMMY_BOOK);
+
+        bookService.addBooks(addedBooks);
+
+        List<Book> books = bookService.searchByKeyword("Java");
+        assertThat(books, is(asList(BOOK)));
     }
 
     private void assertBooksByAuthor(String author, Book book) {

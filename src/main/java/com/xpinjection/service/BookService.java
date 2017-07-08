@@ -14,4 +14,6 @@ public interface BookService {
     List<Book> findBooksByAuthor(String author);
 
     List<Book> findAllBooks();
+
+    List<Book> searchByKeyword(String keyword);
 }

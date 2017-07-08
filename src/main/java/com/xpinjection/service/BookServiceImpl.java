@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
     private final ConcurrentMap<String, List<Book>> cache = new ConcurrentHashMap<>();
+    private final Indexer indexer = new Indexer();
 
     public BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
@@ -29,10 +30,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> addBooks(Map<String, String> books) {
-        return books.entrySet().stream()
-                .map(entry -> new Book(entry.getKey(), entry.getValue()))
-                .map(bookDao::save)
-                .collect(toList());
+        List<Book> added = books.entrySet().stream()
+            .map(entry -> new Book(entry.getKey(), entry.getValue()))
+            .map(bookDao::save)
+            .collect(toList());
+
+        added.forEach(indexer::index);
+
+        return added;
     }
 
     @Override
@@ -64,5 +69,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAllBooks() {
         return bookDao.findAll();
+    }
+
+    @Override
+    public List<Book> searchByKeyword(String keyword) {
+        return indexer.findByKeyword(keyword);
     }
 }
