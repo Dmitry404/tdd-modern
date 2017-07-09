@@ -11,7 +11,9 @@ import org.springframework.test.annotation.Commit;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -29,7 +31,7 @@ public class ReaderDaoTest extends AbstractDaoTest<ReaderDao> {
   }
 
   @Test
-  @DataSet("stored-books-for-favorite.xml")
+  @DataSet(value = "stored-books-for-favorite.xml", cleanAfter = true)
   public void findBooksByFavoriteAuthor() throws Exception {
     List<Book> books = dao.findByReaderId(1L);
 
@@ -37,5 +39,13 @@ public class ReaderDaoTest extends AbstractDaoTest<ReaderDao> {
     BOOK.setId(1L);
 
     assertThat(books, containsInAnyOrder(BOOK));
+  }
+
+  @Test
+  @DataSet(value = "stored-books-for-favorite.xml", cleanAfter = true)
+  public void emptyListOnMissingFavoriteAuthor() throws Exception {
+    List<Book> books = dao.findByReaderId(2L);
+
+    assertThat(books, empty());
   }
 }
