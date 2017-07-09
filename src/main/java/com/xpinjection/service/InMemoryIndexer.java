@@ -2,14 +2,14 @@ package com.xpinjection.service;
 
 import com.xpinjection.domain.Book;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
+@Component
 public class InMemoryIndexer implements Indexer {
   private final Map<String, Book> booksIndex = new ConcurrentHashMap<>();
 
