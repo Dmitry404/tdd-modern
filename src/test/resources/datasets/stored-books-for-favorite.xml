@@ -3,5 +3,6 @@
     <BOOK id="2" name="Decorators in Action (unpublished series)" author="Egor Bugaenko"/>
 
     <READER id="1" name="John Doe" age="34" fav_author="Robert C. Martin"/>
-    <READER id="2" name="Jane Roe" age="34"/>
+    <READER id="2" name="Jane Roe" age="34" />
+    <READER id="3" name="Jane Roe" age="34" fav_author="Joshua Bloch"/>
 </dataset>

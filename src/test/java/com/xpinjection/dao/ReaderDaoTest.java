@@ -49,6 +49,12 @@ public class ReaderDaoTest extends AbstractDaoTest<ReaderDao> {
     assertThat(books, empty());
   }
 
-  //todo not found books results empty list
+  @Test
+  @DataSet(value = "stored-books-for-favorite.xml", cleanAfter = true)
+  public void emptyListOnNotFoundBooks() throws Exception {
+    List<Book> books = dao.findByReaderId(3L);
+
+    assertThat(books, empty());
+  }
   //todo found long list - paging
 }
