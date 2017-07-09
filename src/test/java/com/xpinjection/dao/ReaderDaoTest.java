@@ -48,4 +48,7 @@ public class ReaderDaoTest extends AbstractDaoTest<ReaderDao> {
 
     assertThat(books, empty());
   }
+
+  //todo not found books results empty list
+  //todo found long list - paging
 }
