@@ -130,7 +130,7 @@ public class BookServiceImplTest {
         bookService.addBooks(addedBooks);
 
         List<Book> books = bookService.searchByKeyword("Java");
-        assertThat(books, is(asList(BOOK)));
+        assertThat(books, is(singletonList(BOOK)));
     }
 
     private void assertBooksByAuthor(String author, Book book) {
