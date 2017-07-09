@@ -28,11 +28,14 @@ public class BookServiceImplTest {
     @Mock
     private BookDao dao;
 
+    @Mock
+    private Indexer indexer;
+
     private BookService bookService;
 
     @Before
     public void init() {
-        bookService = new BookServiceImpl(dao);
+        bookService = new BookServiceImpl(dao, indexer);
     }
 
     @Test
@@ -50,6 +53,9 @@ public class BookServiceImplTest {
         books.put("The first", "author");
         books.put("The second", "another author");
         assertThat(bookService.addBooks(books), hasItems(first, second));
+
+        verify(indexer).index(first);
+        verify(indexer).index(second);
     }
 
     @Test
@@ -116,18 +122,9 @@ public class BookServiceImplTest {
 
     @Test
     public void booksCanBeSearchedByKeyword() throws Exception {
-        Map<String, String> addedBooks = new HashMap<>();
-        addedBooks.put("Effective Java", "Joshua Bloch");
-        addedBooks.put("Egor's Object Language", "Egor Bugaenko");
-
         Book BOOK = new Book("Effective Java", "Joshua Bloch");
-        Book DUMMY_BOOK = new Book("Egor's Object Language", "Egor Bugaenko");
 
-        when(dao.save(notNull(Book.class)))
-            .thenReturn(BOOK)
-            .thenReturn(DUMMY_BOOK);
-
-        bookService.addBooks(addedBooks);
+        when(indexer.findByKeyword("Java")).thenReturn(singletonList(BOOK));
 
         List<Book> books = bookService.searchByKeyword("Java");
         assertThat(books, is(singletonList(BOOK)));
