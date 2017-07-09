@@ -44,7 +44,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void forEveryPairOfTitleAndAuthorBookIsCreatedAndStored() {
+    public void forEveryPairOfTitleAndAuthorBookIsCreatedAndStoredAndIndexed() {
         Book first = new Book("The first", "author");
         Book second = new Book("The second", "another author");
         when(dao.save(notNull(Book.class))).thenReturn(first).thenReturn(second);
