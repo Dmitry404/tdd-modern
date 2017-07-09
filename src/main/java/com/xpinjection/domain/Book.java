@@ -14,6 +14,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Book {
     @Id @GeneratedValue
     private Long id;

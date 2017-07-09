@@ -11,13 +11,15 @@ public class Reader {
   @GeneratedValue
   private Long id;
 
-  private final String name;
-  private final int age;
+  private String name;
+  private int age;
   @Column (name = "fav_author")
   private String favoriteAuthor;
 
-  public Reader(String name, int age) {
+  public Reader() {
+  }
 
+  public Reader(String name, int age) {
     this.name = name;
     this.age = age;
   }

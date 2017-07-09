@@ -1,3 +1,6 @@
 <dataset>
     <BOOK id="13" name="Existing book" author="Unknown"/>
+    <BOOK name="Clean Code" author="Robert C. Martin"/>
+    <BOOK name="Clean Coder" author="Robert C. Martin"/>
+    <BOOK name="Clean Architecture" author="Robert C. Martin"/>
 </dataset>

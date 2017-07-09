@@ -1,0 +1,6 @@
+<dataset>
+    <BOOK id="1" name="Clean Code" author="Robert C. Martin"/>
+    <BOOK id="2" name="Decorators in Action (unpublished series)" author="Egor Bugaenko"/>
+
+    <READER id="1" name="Dmitriy" age="34" fav_author="Robert C. Martin"/>
+</dataset>
